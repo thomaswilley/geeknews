@@ -1,0 +1,55 @@
+{% extends "site/base.html" %}
+{% load humanize %}
+{% block content %}
+{% if not user.is_authenticated %}
+You need to be logged in to submit.
+{% else %}
+<h4>Create a post</h4>
+<form action="." method="post" accept-charset="utf-8">
+  {% csrf_token %}
+  {% if form.non_field_errors %}
+  <p class="nfe">
+  {{ form.non_field_errors }}
+  </p>
+  {% endif %}
+  <table>
+    <tr><th>
+        {{ form.title.label }}:
+      </th><td>
+        {{ form.title }}
+      </td>
+      {% if form.title.errors %}
+      <td>{{ form.title.errors }}</td>
+      {% endif %}
+    </tr>
+    <tr><th>
+        Url:
+      </th><td>
+        {{ form.link }}
+      </td>
+      {% if form.link.errors %}
+      <td>{{ form.link.errors }}</td>
+      {% endif %}
+    </tr>
+    <tr><th>
+      </th><td>
+        <p>Or</p>
+    </td></tr>
+    <tr><th>
+        Content:
+      </th><td>
+        {{ form.desc }}
+      </td>
+      {% if form.desc.errors %}
+      <td>{{ form.desc.errors }}</td>
+      {% endif %}
+    </tr>
+  </table><p>
+  Add a Url so people can click on your post or, leave the Url blank to submit a question or thought for discussion.
+  </p>
+  <p>
+  <input type="submit" value="Submit" />
+  </p>
+</form>
+{% endif %}
+{% endblock %}

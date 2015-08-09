@@ -1,0 +1,21 @@
+<form action="{% url 'addcomment' pk=post.pk %}" method="post" accept-charset="utf-8">
+  {% csrf_token %}
+  {% if comment_form.form.non_field_errors %}
+  <p class="nfe">{{ comment_form.non_field_errors }}</p>
+  {% endif %}
+  <table class="comment-form">
+    <tr>
+      <td>
+        <div class="full_width_textarea">{{ comment_form.desc }}</div>
+        {% if comment_form.desc.errors %}
+        {{ comment_form.desc.errors }}
+        {% endif %}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input type='submit' value='add comment'/>
+      </td>
+    </tr>
+  </table>
+</form>

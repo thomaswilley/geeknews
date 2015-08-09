@@ -1,0 +1,12 @@
+---
+applications:
+- name: gn
+  instances: 1
+  memory: 128M
+  command: null
+  services:
+  - gn_db
+  env:
+    SECRET_KEY: '^169g==30u^6#j(gpto%n%xa-pe)!-4-09j509n@tvbba)n&03'
+    DEBUG: 'False'
+  buildpack: https://github.com/cloudfoundry/buildpack-python.git

@@ -1,0 +1,41 @@
+{% extends "site/base.html" %}
+{% block content %}
+{% if user.is_authenticated %}
+Hi {{ user.username }}, you're already logged in!
+{% else %}
+<h4>Login</h4>
+<form action="." method="post" accept-charset="utf-8">
+  {% csrf_token %}
+  {% if form.non_field_errors %}
+  <p class="nfe">
+  {{ form.non_field_errors }}
+  need to <a href="{% url "auth_password_reset" %}">reset your password?</a>
+  </p>
+  {% endif %}
+  <table>
+    {% for field in form %}
+    <tr><th>
+        {{ field.label }}:
+      </th><td>
+        {{ field }}
+      </td>
+      {% if field.errors %}
+      <td>
+        {{ field.errors }}
+      </td>
+      {% endif %}
+    </tr>
+    {% if field.errors and field.label == "Password" %}
+    <tr><td></td><td colspan=2>
+        need to <a href="{% url "auth_password_reset" %}">reset your password?</a>
+    </td></tr>
+    {% endif %}
+    {% endfor %}
+  </table><p>
+  <input type="hidden" name="next" value="{{next}}" />
+  <input type="submit" value="Login" />
+  <span>Don't have an account yet? <a href="{% url "registration_register" %}?next={{ next }}">Create one!</a></span>
+  </p>
+</form>
+{% endif %}
+{% endblock %}

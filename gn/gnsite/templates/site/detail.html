@@ -1,0 +1,54 @@
+{% extends "site/base.html" %}
+{% load humanize %}
+{% block content %}
+<table class="full-width">
+  <tr class="post">
+    <td class="accoutrement bullet">{% include "site/upvote.html" with post=post %}</td>
+    <td>{{ post.title }}
+      {% if post.link %}
+      <span class="details domain">
+        ({{ post.get_domain_only }})
+      </span>
+      {% endif %}
+      <p class="details">
+      {% with total_upvotes=post.votes.all.count %}
+      {{ total_upvotes }} point{{ total_upvotes|pluralize }}
+      {% endwith %}
+      by <a href="{% url 'profile' username=post.op.username %}">{{ post.op.username }}</a>
+      {{ post.dt_created|naturaltime }}
+      {% if user.is_authenticated and user == post.op %}
+      |
+      <a href="{% url "post_update" pk=post.pk %}">edit</a>
+      |
+      <a href="{% url "post_delete" pk=post.pk %}">delete</a>
+      {% endif %}
+      </p>
+    </td>
+  </tr>
+</tr>
+<tr>
+  <td></td>
+  <td>
+    {{ post.desc|linebreaksbr }}
+  </td>
+</tr>
+<tr>
+  <td></td>
+  <td>
+    {% include 'site/comment_form.html' with comment_form=comment_form post=post %}
+  </td>
+</tr>
+<tr>
+  <td></td>
+  <td>
+    <table>
+      {% for comment in post.comments.all %}
+      <tr><td>
+          {% include "site/comment.html" with comment=comment %}
+      </td></tr>
+      {% endfor %}
+    </table>
+  </td>
+</tr>
+</table>
+{% endblock %}

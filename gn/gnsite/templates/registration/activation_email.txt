@@ -1,0 +1,6 @@
+Welcome to GeekNews - almost done signing up... click this link to
+complete your signup:
+
+https://{{ site.domain }}{% url "registration_activate" activation_key %}
+
+This link will be active for {{ expiration_days }} days.

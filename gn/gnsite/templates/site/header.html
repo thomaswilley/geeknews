@@ -1,0 +1,23 @@
+<table class="header">
+  <tr>
+    <td class="logo"><div id="gnLogo" onclick="javascript:location.href='/';">GN</div></td>
+    <td class="nav">
+      <a href="{% url "latest" %}">latest</a>
+      |
+      <a href="{% url "post_create" %}">submit</a>
+      {% if user.is_authenticated %}
+      |
+      <a href="{% url "profile" %}">profile</a>
+      {% endif %}
+    </td>
+    <td class="toolbox">
+      {% if user.is_authenticated %}
+      <a href="{% url "auth_logout" %}?next={% url "index" %}">
+        logout ({{ user.username }})
+      </a>
+      {% else %}
+      <a href="{% url "auth_login" %}?next={% url "profile" %}">login</a>
+      {% endif %}
+    </td>
+  </tr>
+</table>

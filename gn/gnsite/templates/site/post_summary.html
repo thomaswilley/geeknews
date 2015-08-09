@@ -1,0 +1,27 @@
+{% load humanize %}
+{% if post.desc %}
+<a href="{% url 'detail' post.pk %}">{{ post.title }}</a>
+{% else %}
+<a href="{{ post.link }}">{{ post.title }}</a>
+<span class="details domain">
+  ({{ post.get_domain_only }})
+</span>
+{% endif %}
+<p class="details">
+score {{ post.get_score|floatformat:4 }}
+<a href="{% url "profile" post.op.username %}">{{ post.op.username }}</a>
+{{ post.dt_created|naturaltime }}
+{% if post.comments.all %}
+<a href="{% url 'detail' post.pk %}">
+  {{ post.total_num_comments }} comments
+</a>
+{% else %}
+<a href="{% url 'detail' post.pk %}">discuss</a>
+{% endif %}
+{% if user.is_authenticated and user == post.op %}
+|
+<a href="{% url "post_update" pk=post.pk %}">edit</a>
+|
+<a href="{% url "post_delete" pk=post.pk %}">delete</a>
+{% endif %}
+</p>

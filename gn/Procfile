@@ -1,0 +1,1 @@
+web: gunicorn gn.wsgi --workers 2

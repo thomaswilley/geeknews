@@ -1,0 +1,2 @@
+// note: still going to use .env settings
+dev: python manage.py runserver 127.0.0.1:5000

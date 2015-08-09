@@ -1,0 +1,5 @@
+{% extends "site/base.html" %}
+{% block content %}
+Your account has been successfully activated -- please
+<a href="{% url "auth_login" %}?next={% url "project_create" %}" class="btn btn-primary">Login!</a>
+{% endblock %}

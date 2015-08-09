@@ -1,0 +1,43 @@
+{% extends "site/base.html" %}
+{% block content %}
+<h4>Create Account</h4>
+<form action="." method="post" accept-charset="utf-8">
+  {% csrf_token %}
+  {% if form.non_field_errors %}
+  <p class="nfw">
+  {{ form.non_field_errors }}
+  </p>
+  {% endif %}
+  <table>
+    {% for field in form %}
+    {% if field.label == "Tos" %}
+    <tr><td colspan=2>
+        {{ field }}
+        <label for="{{ field.name }}">
+          I've read and agree to the
+          <a href="{% url "tos" %}">Terms of Service</a>
+        </label>
+      </td>
+      {% if field.errors %}
+      <td>{{ field.errors }}</td>
+      {% endif %}
+    </tr>
+    {% else %}
+    <tr><th>
+        {{ field.label }}:
+      </th><td>
+        {{ field }}
+      </td>
+      {% if field.errors %}
+      <td>{{ field.errors }}</td>
+      {% endif %}
+    </tr>
+    {% endif %}
+    {% endfor %}
+  </table>
+  <p>
+  <input type="hidden" name="next" value="{{next}}" />
+  <input type="submit" value="Sign Up!" class="btn btn-primary">
+  </p>
+</form>
+{% endblock %}

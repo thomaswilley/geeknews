@@ -1,0 +1,34 @@
+{% extends "site/base.html" %}
+{% block content %}
+{% if not user.is_authenticated %}
+You need to be logged in to delete.
+{% else %}
+<h4>Confirm deletion</h4>
+<p>Are you really sure you want to delete this post?</p>
+<form action="." method="post" accept-charset="utf-8">
+  {% csrf_token %}
+  {% if form.non_field_errors %}
+  <p class="nfe">
+  {{ form.non_field_errors }}
+  </p>
+  {% endif %}
+  <table>
+    {% for field in form %}
+    <tr><th>
+        {{ field.label }}:
+      </th><td>
+        {{ field }}
+      </td>
+      {% if field.errors %}
+      <td>
+        {{ field.errors }}
+      </td>
+      {% endif %}
+    </tr>
+    {% endfor %}
+  </table><p>
+  <input type="submit" value="Submit" />
+  </p>
+</form>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,10 @@
+<div class="upvote">
+  {% if user.is_authenticated and user in post.votes.all %}
+  <span class="cantvote_icon">*</span>
+  {% else %}
+  <form id="form{{ post.pk }}" action="{% url "upvote" pk=post.pk %}" method="post">
+    {% csrf_token %}
+    <a href="#" onclick="document.getElementById('form{{ post.pk }}').submit()">&#9650;</a>
+  </form>
+  {% endif %}
+</div>

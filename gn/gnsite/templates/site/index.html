@@ -1,0 +1,19 @@
+{% extends "site/base.html" %}
+{% load humanize %}
+{% block content %}
+{% if not posts %}
+No posts yet. <a href="{% url 'post_create' %}">Create the first one!</a>
+{% else %}
+<table class="posts">
+  {% for post in posts %}
+  <tr class="post">
+    <td class="accoutrement bullet">{{ forloop.counter }}.</td>
+    <td class="accoutrement">{% include "site/upvote.html" with post=post %}</td>
+    <td>
+      {% include "site/post_summary.html" with post=post %}
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endif %}
+{% endblock %}

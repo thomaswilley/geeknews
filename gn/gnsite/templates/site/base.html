@@ -1,0 +1,30 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+<title>geeknews</title>
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static "css/gnsite.css" %}">
+{% endblock %}
+{% block js %}{% endblock %}
+</head>
+<body>
+<div class="container">
+  <table class="container">
+    <tr><td>{% include "site/header.html" %}</td></tr>
+    <tr><td>
+        {% block content %}
+        {% endblock %}
+    </td></tr>
+  </table>
+</div>
+<script>
+if(location.host.search("localhost")===0||location.host.search("127.0.0.1")===0) {
+  console.log('using development settings (client).');
+  document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')
+}
+</script>
+{% block just_before_closebody %}
+{% endblock %}
+</body>
+</html>

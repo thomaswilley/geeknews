@@ -1,0 +1,35 @@
+{% load humanize %}
+<table class="full-width">
+  <tr class="post"><td class="accoutrement">
+      {% include "site/upvote.html" with post=comment %}
+    </td><td>
+      <p class="details">
+      {% with total_upvotes=comment.votes.all.count %}
+      {{ total_upvotes }} point{{ total_upvotes|pluralize }}
+      {% endwith %}
+      by <a href="{% url 'profile' username=comment.op.username %}">{{ comment.op.username }}</a>
+      {{ comment.dt_created|naturaltime }}
+      | <a href="{% url "detail" pk=comment.pk %}">link</a>
+      </p>
+  </td></tr>
+  <tr><td></td><td>
+      {{ comment.desc|linebreaksbr }}
+  </td></tr>
+  <tr class="post">
+    <td></td>
+    <td class="details">
+      <a href="{% url "detail" pk=comment.pk %}">reply</a>
+      {% if user.is_authenticated and user == comment.op %}
+      |
+      <a href="{% url "comment_update" pk=comment.pk %}">edit</a>
+      |
+      <a href="{% url "post_delete" pk=comment.pk %}">delete</a>
+      {% endif %}
+    </td>
+  </tr>
+  <tr><td></td><td class="full-width">
+  {% for c in comment.comments.all %}
+    {% include "site/comment.html" with comment=c %}
+  {% endfor %}
+</td>
+</table>

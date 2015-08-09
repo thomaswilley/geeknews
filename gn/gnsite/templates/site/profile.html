@@ -1,0 +1,35 @@
+{% extends "site/base.html" %}
+{% load humanize %}
+{% block content %}
+<table>
+  <tr><td>name: {{ profile.username }}</td></tr>
+  <tr><td>email: {{ profile.email }}</td></tr>
+  <tr><td>
+      {% if not profile.posts.all %}
+      no submissions yet.
+      {% else %}
+      submissions:
+      {% for post in profile.posts.all %}
+      <table class="full-width">
+        <tr class="post">
+          {% if not post.parent %}
+          <td class="accoutrement">post</td>
+          <td class="accoutrement">{% include "site/upvote.html" with post=post %}</td>
+          <td>
+            {% include "site/post_summary.html" with post=post %}
+          </td>
+          {% else %}
+          {% if user.is_authenticated %}
+          <td class="accoutrement">comment</td>
+          <td>
+            {% include "site/comment.html" with comment=post %}
+          </td>
+          {% endif %}
+        </tr>
+      </table>
+      {% endif %}
+      {% endfor %}
+      {% endif %}
+  </td></tr>
+</table>
+{% endblock %}
