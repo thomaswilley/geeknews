@@ -1,4 +1,4 @@
-# geeknews
+# GeekNews (GN)
 
 GN is a cloud-native app template (seed) masquerading as a simple social news site and an homage to HackerNews. GN includes:
 
