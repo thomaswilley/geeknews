@@ -1,10 +1,13 @@
 # geeknews
 
-A cloud-native python & django seed application.
+GN is a cloud-native app template (seed) masquerading as a simple social news site and an homage to HackerNews. GN includes:
 
-GeekNews (GN) is a social news site in homage to HackerNews allowing for its users to register, login/out, manage profiles, submit postings, make comments, and cast votes.
-
-Built to deploy into CloudFoundry and scale fast out of the box. An exploration in progress unfit for production use.
+- python3+django1.7 web app foundation
+- basic templates for class based views and user interactions
+- user registration process incl. TOS acceptance step
+- user profiles & account maintenance
+- integrated local & remote devops workflow
+- ready to scale to real world needs out of the box (via CloudFoundry)
 
 ## Cloud Native / 12-factor
 
